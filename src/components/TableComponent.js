@@ -8,7 +8,7 @@ const TableComponent = ({ data, onEdit, onDelete }) => {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>ID</TableCell>
+            {/* <TableCell>ID</TableCell> */}
             <TableCell>Name</TableCell>
             <TableCell>Date of Birth</TableCell>
             <TableCell>Department</TableCell>
