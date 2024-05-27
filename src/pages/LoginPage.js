@@ -59,9 +59,6 @@ const LoginPage = () => {
           </Button>
           {error && <Typography variant="body2" color="error">{error}</Typography>}
         </form>
-        {/* <Typography variant="body2">
-          Don't have an account? <Link to="/register">Register</Link>
-        </Typography> */}
       </div>
     </Container>
   );
