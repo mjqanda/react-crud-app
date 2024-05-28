@@ -56,13 +56,17 @@ const DashboardPage = () => {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.setItem('token', ''); // Replace 'token' with the actual key name if different
+  };
+
   return (
-    <Container 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        justifyContent: 'center', 
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
         minHeight: '100vh',
         padding: '2rem'
       }}
@@ -70,7 +74,7 @@ const DashboardPage = () => {
       <Typography variant="h4" gutterBottom>Employee List</Typography>
       <Button variant="contained" color="primary" onClick={() => handleOpen()}>Add New</Button>
       <TableComponent data={data} onEdit={handleOpen} onDelete={handleDelete} />
-      <Link to="/">Go to Login Page</Link>
+      <Link to="/" onClick={handleLogout}>Go to Login Page</Link>
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>{currentRow.id ? 'Edit Row' : 'Add New Row'}</DialogTitle>
