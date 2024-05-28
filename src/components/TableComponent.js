@@ -1,25 +1,76 @@
 // src/components/TableComponent.js
-import React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import React, { useState } from 'react';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button, TableSortLabel } from '@mui/material';
 
 const TableComponent = ({ data, onEdit, onDelete }) => {
+  const [sortConfig, setSortConfig] = useState({ key: 'name', direction: 'asc' });
+
+  const sortedData = [...data].sort((a, b) => {
+    if (a[sortConfig.key] < b[sortConfig.key]) {
+      return sortConfig.direction === 'asc' ? -1 : 1;
+    }
+    if (a[sortConfig.key] > b[sortConfig.key]) {
+      return sortConfig.direction === 'asc' ? 1 : -1;
+    }
+    return 0;
+  });
+
+  const handleSort = (key) => {
+    setSortConfig((prevState) => ({
+      key,
+      direction: prevState.key === key && prevState.direction === 'asc' ? 'desc' : 'asc'
+    }));
+  };
+
   return (
     <TableContainer component={Paper}>
       <Table>
         <TableHead>
           <TableRow>
-            {/* <TableCell>ID</TableCell> */}
-            <TableCell>Name</TableCell>
-            <TableCell>Date of Birth</TableCell>
-            <TableCell>Department</TableCell>
-            <TableCell>Salary</TableCell>
-            <TableCell>Actions</TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortConfig.key === 'name'}
+                direction={sortConfig.key === 'name' ? sortConfig.direction : 'asc'}
+                onClick={() => handleSort('name')}
+              >
+                Name
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortConfig.key === 'dob'}
+                direction={sortConfig.key === 'dob' ? sortConfig.direction : 'asc'}
+                onClick={() => handleSort('dob')}
+              >
+                Date of Birth
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortConfig.key === 'department'}
+                direction={sortConfig.key === 'department' ? sortConfig.direction : 'asc'}
+                onClick={() => handleSort('department')}
+              >
+                Department
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={sortConfig.key === 'salary'}
+                direction={sortConfig.key === 'salary' ? sortConfig.direction : 'asc'}
+                onClick={() => handleSort('salary')}
+              >
+                Salary
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              Actions
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((row) => (
+          {sortedData.map((row) => (
             <TableRow key={row.id}>
-              {/* <TableCell>{row.id}</TableCell> */}
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.dob}</TableCell>
               <TableCell>{row.department}</TableCell>
